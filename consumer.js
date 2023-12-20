@@ -6,24 +6,21 @@ async function run() {
 	try {
 		const kafka = new Kafka({
 			clientId: 'smart-lok',
-			brokers: ['192.168.29.80:9092'],
+			brokers: ['74.235.96.252:30092'],
 		});
 
-		const consumer = kafka.consumer({ groupId: 'test' });
+		const consumer = kafka.consumer({ groupId: 'aditya-2' });
 		console.log('Connecting.....');
 		await consumer.connect();
 		console.log('Connected!');
 
 		await consumer.subscribe({
 			topic: 'sensor-data',
-			fromBeginning: true,
 		});
 
 		await consumer.run({
 			eachMessage: async result => {
-				console.log(
-					`RVD Msg ${result.message.value} on partition ${result.partition}`
-				);
+				console.log('message: ', result.message.value.toString());
 			},
 		});
 	} catch (ex) {

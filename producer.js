@@ -8,7 +8,7 @@ async function run() {
 	try {
 		const kafka = new Kafka({
 			clientId: 'smart-lok',
-			brokers: ['192.168.0.45:9092'],
+			brokers: ['74.235.96.252:9092'],
 		});
 
 		const producer = kafka.producer();
@@ -16,13 +16,13 @@ async function run() {
 		await producer.connect();
 		console.log('Connected!');
 		//A-M 0 , N-Z 1
-		const partition = msg[0] < 'N' ? 0 : 1;
+		// const partition = msg[0] < 'N' ? 0 : 1;
 		const result = await producer.send({
-			topic: 'Users',
+			topic: 'sensor-data',
 			messages: [
 				{
 					value: msg,
-					partition: partition,
+					// partition: partition,
 				},
 			],
 		});
